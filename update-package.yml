@@ -1,24 +1,50 @@
 ---
-- name: update and upgrade apt packages
+- name: Prepare master node
   hosts: master
   become: yes
-  tasks: 
-    - name: update apt packages
+  tasks:
+    - name: Update apt packages
       apt:
         update_cache: yes
 
-    - name: upgrade apt packages
+    - name: Upgrade apt packages
       apt:
         upgrade: dist
 
-- name: upgrade worker nodes
+    - name: Install prerequisites for k3s
+      apt:
+        name:
+          - curl
+          - wget
+          - ca-certificates
+          - iptables
+          - net-tools
+          - lsb-release
+          - nfs-common
+        state: present
+        update_cache: yes
+
+- name: Prepare worker nodes
   hosts: worker-node
   become: yes
-  tasks: 
-    - name: update apt packages
+  tasks:
+    - name: Update apt packages
       apt:
         update_cache: yes
 
-    - name: upgrade apt packages
+    - name: Upgrade apt packages
       apt:
         upgrade: dist
+
+    - name: Install prerequisites for k3s
+      apt:
+        name:
+          - curl
+          - wget
+          - ca-certificates
+          - iptables
+          - net-tools
+          - lsb-release
+          - nfs-common
+        state: present
+        update_cache: yes
