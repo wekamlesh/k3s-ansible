@@ -1,0 +1,2 @@
+# Ignore production inventory file that contains real IP addresses
+inventories/production.ini

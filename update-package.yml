@@ -1,0 +1,24 @@
+---
+- name: update and upgrade apt packages
+  hosts: master
+  become: yes
+  tasks: 
+    - name: update apt packages
+      apt:
+        update_cache: yes
+
+    - name: upgrade apt packages
+      apt:
+        upgrade: dist
+
+- name: upgrade worker nodes
+  hosts: worker-node
+  become: yes
+  tasks: 
+    - name: update apt packages
+      apt:
+        update_cache: yes
+
+    - name: upgrade apt packages
+      apt:
+        upgrade: dist
